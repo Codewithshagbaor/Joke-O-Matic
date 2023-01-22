@@ -9,7 +9,7 @@ Django 2.x or above
 ##### Installing
 Clone the repository to your local machine
 ``` 
-git clone https://github.com/<your-username>/joke-o-matic.git
+git clone https://github.com/Codewithshagbaor/Joke-O-Matic.git
 ```
 Navigate to the project directory
 ```
