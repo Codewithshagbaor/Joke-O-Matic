@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Jokes</title>
+  <title>Joke-O-Matic</title>
 </head>
 <style>
   /* Add some styling for the floating icon */
@@ -40,15 +40,43 @@
     text-align: left; /* align the text to the left */
     box-shadow: 0 0 10px rgba(0,0,0,0.1); /* add a subtle drop shadow */
     background: #eee; /* add a light grey background color */
-  }    
+  }  
+  #refresh-button {
+      float: right;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #heading {
+      font-size: 3em;
+      text-align: center;
+      background: linear-gradient(to right, #ff0000, #ffff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 </style>
 <body>
+  <h1 id="heading">Joke-O-Matic: The Random Joke Generator</h1>
+  <i id="refresh-button" class="fa-solid fa-sync fa-spin"></i>
   <div  class="output">
-    <p class="mb-auto">{{joke}}</p>
-    <p>{{punchline}}</p>
+    <p class="mb-auto" id="content-text">{{joke}}<br><br>{{punchline}}</p>
   </div>
   <a href="https://github.com/Codewithshagbaor" target="_blank" class="github-icon">
     <img src="https://avatars.githubusercontent.com/u/67190277?v=4" alt="GitHub Icon">
   </a> 
+  <script>
+    let refreshButton = document.getElementById('refresh-button');
+    refreshButton.addEventListener('click', function() {
+        // Make a fetch request to the Django view
+        fetch('/random/')
+            .then(response => response.text())
+            .then(data => {
+                // Update the #content-text element with the response from the server
+                document.getElementById('content-text').innerHTML = '<p>'+data+'</p>';
+            })
+            .catch(error => console.error('An error occurred while loading the content:', error));
+    });
+</script>
+<script src="https://kit.fontawesome.com/001669ef63.js" crossorigin="anonymous"></script>
 </body>
 </html>
